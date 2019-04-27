@@ -16,7 +16,11 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="#">
+                        <a href="{{ path('property_show', {
+                                    id: property.id, 
+                                    slug: property.slug
+                                    }) 
+                                }}">
                             {{ property.title }}
                         </a>
                     </h5>

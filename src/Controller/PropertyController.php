@@ -28,4 +28,22 @@ class PropertyController extends AbstractController
             'controller_name' => 'PropertyController',
         ]);
     }
+
+    
+    /**
+     * @Route("/biens/{slug}-{id}", name="property_show", requirements={"slug":"[a-z0-9\-]*"})
+     */
+    public function show(Property $property, string $slug)
+    {
+        if($property->getSlug() !== $slug)
+        {
+            return $this->redirectToRoute('property_show', [
+                'id' => $property->getId(),
+                'slug' => $property->getSlug()
+            ], 301);
+        }
+        return $this->render('property/show.html.twig', [
+            'property' => $property
+        ]);
+    }
 }

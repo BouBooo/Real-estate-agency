@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
@@ -185,6 +186,11 @@ class Property
         return $this->heat;
     }
 
+    public function getHeatType()
+    {
+        // Return String for Heat type
+        return self::HEAT[$this->heat];
+    }
     public function setHeat(int $heat): self
     {
         $this->heat = $heat;
@@ -251,4 +257,11 @@ class Property
 
         return $this;
     }
+
+    public function getSlug() 
+    {
+        return (new Slugify())->slugify($this->title);
+    }
 }
+
+
