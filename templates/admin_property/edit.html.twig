@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container mt-4">
+    <h1>Editer un bien</h1>
+
+    {{ form_start(editForm) }}
+
+    <div class="row">
+        <div class="col-md-4">{{ form_row(editForm.title) }}</div>
+        <div class="col-md-4">{{ form_row(editForm.surface) }}</div>
+        <div class="col-md-4">{{ form_row(editForm.price) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">{{ form_row(editForm.rooms) }}</div>
+        <div class="col-md-3">{{ form_row(editForm.bedrooms) }}</div>
+        <div class="col-md-3">{{ form_row(editForm.heat) }}</div>
+        <div class="col-md-3">{{ form_row(editForm.floor) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">{{ form_row(editForm.address) }}</div>
+        <div class="col-md-2">{{ form_row(editForm.city) }}</div>
+        <div class="col-md-3">{{ form_row(editForm.postal_code) }}</div>
+        <div class="col-md-1">{{ form_row(editForm.sold) }}</div>
+    </div>
+        {{ form_widget(editForm) }}
+        <button type="submit" class="btn btn-primary">Editer</button>
+
+    {{ form_end(editForm) }}
+</div>
+
+{% endblock %}

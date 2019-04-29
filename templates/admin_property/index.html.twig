@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Real Estate Agency{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container mt-4">
+    <h1>Gérer les biens</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for property in properties %}
+                <tr>   
+                    <td>{{ property.title }}</td>
+                    <td>
+                        <div class="row">
+                        <a href="{{ path('admin_property_edit', {id : property.id}) }}" class="btn btn-secondary">Editer</a>
+                        <form method="POST" action="{{ path('admin_property_delete', {id: property.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce bien ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+
+                            <button  style="margin-left:5%" class="btn btn-danger" type="submit">Supprimer</button>
+                        </form>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-right">
+            <a href="{{ path('admin_property_new') }}" class="btn btn-primary">Créer un nouveau bien</a>
+        </div>
+</div> 
+{% endblock %}

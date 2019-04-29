@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container mt-4">
+   {{ form_start(createForm) }}
+
+    <div class="row">
+        <div class="col-md-4">{{ form_row(createForm.title) }}</div>
+        <div class="col-md-4">{{ form_row(createForm.surface) }}</div>
+        <div class="col-md-4">{{ form_row(createForm.price) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">{{ form_row(createForm.rooms) }}</div>
+        <div class="col-md-3">{{ form_row(createForm.bedrooms) }}</div>
+        <div class="col-md-3">{{ form_row(createForm.heat) }}</div>
+        <div class="col-md-3">{{ form_row(createForm.floor) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">{{ form_row(createForm.address) }}</div>
+        <div class="col-md-2">{{ form_row(createForm.city) }}</div>
+        <div class="col-md-3">{{ form_row(createForm.postal_code) }}</div>
+        <div class="col-md-1">{{ form_row(createForm.sold) }}</div>
+    </div>
+        {{ form_widget(createForm) }}
+        <button type="submit" class="btn btn-primary">Créer</button>
+
+    {{ form_end(createForm) }}
+</div>
+
+{% endblock %}
