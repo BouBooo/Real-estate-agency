@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use Doctrine\ORM\Query;
 use App\Entity\Property;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\PropertySearch;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Property|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,13 +22,49 @@ class PropertyRepository extends ServiceEntityRepository
         parent::__construct($registry, Property::class);
     }
 
-    public function findAllVisibleQuery()
-    {
+    /**
+	 * @return QueryBuilder
+	 */
+	public function findVisibleBien(): QueryBuilder
+	{
         return $this->createQueryBuilder('p')
-            ->andWhere('p.sold = false')
-            ->getQuery()
-            
-        ;      
+            ->where('p.sold = false');
+	}
+
+    public function findAllVisibleQuery(PropertySearch $search): Query
+    {
+        $query = $this->findVisibleBien();
+
+        if($search->getMaxPrice())
+        {
+            $query = $query
+                    ->andWhere('p.price <= :maxprice')
+                    ->setParameter('maxprice', $search->getMaxPrice());
+        }
+
+        if($search->getMinSurface())
+        {
+            $query = $query
+                    ->andWhere('p.surface >= :minsurface')
+                    ->setParameter('minsurface', $search->getMinSurface());
+        }
+
+        if($search->getNbrBedrooms())
+        {
+            $query = $query
+                    ->andWhere('p.bedrooms >= :nbrbedrooms')
+                    ->setParameter('nbrbedrooms', $search->getNbrBedrooms());
+        }
+
+        if($search->getNbrRooms())
+        {
+            $query = $query
+                    ->andWhere('p.rooms >= :nbrrooms')
+                    ->setParameter('nbrrooms', $search->getNbrRooms());
+        }
+
+        return $query->getQuery();
+  
     }
 
     public function findLatest()
