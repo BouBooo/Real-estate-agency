@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -97,9 +99,21 @@ class Property
      */
     private $created_at;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Option", mappedBy="properties")
+     */
+    private $options;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Options", mappedBy="properties")
+     */
+    private $property_options;
+
     public function __construct() 
     {
         $this->created_at = new \Datetime();
+        $this->options = new ArrayCollection();
+        $this->property_options = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -271,6 +285,34 @@ class Property
     public function getSlug() 
     {
         return (new Slugify())->slugify($this->title);
+    }
+
+    /**
+     * @return Collection|Options[]
+     */
+    public function getPropertyOptions(): Collection
+    {
+        return $this->property_options;
+    }
+
+    public function addPropertyOption(Options $propertyOption): self
+    {
+        if (!$this->property_options->contains($propertyOption)) {
+            $this->property_options[] = $propertyOption;
+            $propertyOption->addProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removePropertyOption(Options $propertyOption): self
+    {
+        if ($this->property_options->contains($propertyOption)) {
+            $this->property_options->removeElement($propertyOption);
+            $propertyOption->removeProperty($this);
+        }
+
+        return $this;
     }
 }
 
