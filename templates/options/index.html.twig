@@ -3,6 +3,8 @@
 {% block title %}Options index{% endblock %}
 
 {% block body %}
+
+<div class="container col-6 mt-4">
     <h1>Options index</h1>
 
     <table class="table">
@@ -10,7 +12,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,17 +21,22 @@
                 <td>{{ option.id }}</td>
                 <td>{{ option.name }}</td>
                 <td>
-                    <a href="{{ path('options_show', {'id': option.id}) }}">show</a>
-                    <a href="{{ path('options_edit', {'id': option.id}) }}">edit</a>
+                    <a class="btn btn-info" href="{{ path('options_show', {'id': option.id}) }}">Voir</a>
+                    <a class="btn btn-danger" href="{{ path('options_edit', {'id': option.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">No records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('options_new') }}">Create new</a>
+    <div align="center">
+        <a class="btn btn-success" href="{{ path('options_new') }}">Créer une nouvelle option
+            <i class="glyphicon glyphicon-plus"></i>
+        </a>
+    </div>
+</div>
 {% endblock %}

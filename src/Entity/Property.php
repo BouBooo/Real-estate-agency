@@ -100,12 +100,7 @@ class Property
     private $created_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Option", mappedBy="properties")
-     */
-    private $options;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Options", mappedBy="properties")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Options", inversedBy="properties")
      */
     private $property_options;
 
@@ -290,7 +285,7 @@ class Property
     /**
      * @return Collection|Options[]
      */
-    public function getPropertyOptions(): Collection
+    public function getOptions(): Collection
     {
         return $this->property_options;
     }
