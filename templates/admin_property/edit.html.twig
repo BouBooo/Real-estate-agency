@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
+{% form_theme editForm 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
 
 <div class="container mt-4">
     <h1>Editer un bien</h1>
+
 
     {{ form_start(editForm) }}
     
@@ -19,7 +21,8 @@
         <div class="col-md-3">{{ form_row(editForm.floor) }}</div>
     </div>
     <div class="row">
-        <div class="col-md-4">{{ form_row(editForm.address) }}</div>
+        <div class="col-md-2">{{ form_row(editForm.imageFile) }}</div>
+        <div class="col-md-2">{{ form_row(editForm.address) }}</div>
         <div class="col-md-2">{{ form_row(editForm.city) }}</div>
         <div class="col-md-3">{{ form_row(editForm.postal_code) }}</div>
         <div class="col-md-1">{{ form_row(editForm.sold) }}</div>
