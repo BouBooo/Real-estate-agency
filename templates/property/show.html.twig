@@ -25,7 +25,7 @@
                 <div class="text-primary">
                     {{ property.price | number_format(0, '', ' ') }} €
                 </div>
-                <a href="#" class="btn btn-primary">Contacter l'agence</a>
+                <a href="#contact" class="btn btn-primary">Contacter l'agence</a>
             </div>
         </div>
     </div>  
@@ -76,4 +76,46 @@
 
 </div>
 
+<section id="contact">
+    <div class="jumbotron">
+        <div class="container">
+            <div align="center">
+                <h3 class="mb-4">Contacter l'agence</h3>
+                <div id="contactForm" class="mt-2">
+                        {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_row(form.firstname) }}
+                                </div>
+                                <div class="col">
+                                    {{ form_row(form.lastname) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_row(form.phone) }}
+                                </div>
+                                <div class="col">
+                                    {{ form_row(form.email) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_row(form.message) }}
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-primary">Envoyer</button>
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+            </div>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}
